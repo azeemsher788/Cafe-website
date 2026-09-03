@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Add Cafe | RemoteRoost{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+    <div class="bg-gradient-to-r from-gray-900 to-gray-800 px-8 py-6">
+        <h2 class="text-2xl font-bold text-white">Add a New Workspace</h2>
+        <p class="text-gray-300 text-sm mt-1">Help others find great places to work remotely.</p>
+    </div>
+    
+    <div class="p-8">
+        <form method="POST" action="{{ url_for('add_cafe') }}" class="space-y-6">
+            {{ form.csrf_token }}
+            
+            <!-- Basic Info -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-800 border-b pb-2">Basic Details</h3>
+                
+                <div>
+                    {{ form.name.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                    {{ form.name(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors", placeholder="e.g., The Roastery") }}
+                    {% for error in form.name.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        {{ form.location.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                        {{ form.location(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors", placeholder="e.g., Downtown") }}
+                        {% for error in form.location.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.coffee_price.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                        {{ form.coffee_price(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors", placeholder="e.g., £2.50") }}
+                        {% for error in form.coffee_price.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div>
+                    {{ form.map_url.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                    {{ form.map_url(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors", placeholder="https://goo.gl/maps/...") }}
+                    {% for error in form.map_url.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                
+                <div>
+                    {{ form.img_url.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                    {{ form.img_url(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors", placeholder="https://images.unsplash.com/...") }}
+                    {% for error in form.img_url.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                
+                <div>
+                    {{ form.seats.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+                    {{ form.seats(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors bg-white") }}
+                    {% for error in form.seats.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Amenities -->
+            <div class="space-y-4 pt-4">
+                <h3 class="text-lg font-semibold text-gray-800 border-b pb-2">Amenities</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        {{ form.has_wifi(class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent") }}
+                        {{ form.has_wifi.label(class="ml-2 block text-sm text-gray-700 cursor-pointer") }}
+                    </div>
+                    <div class="flex items-center">
+                        {{ form.has_sockets(class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent") }}
+                        {{ form.has_sockets.label(class="ml-2 block text-sm text-gray-700 cursor-pointer") }}
+                    </div>
+                    <div class="flex items-center">
+                        {{ form.can_take_calls(class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent") }}
+                        {{ form.can_take_calls.label(class="ml-2 block text-sm text-gray-700 cursor-pointer") }}
+                    </div>
+                    <div class="flex items-center">
+                        {{ form.has_toilet(class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent") }}
+                        {{ form.has_toilet.label(class="ml-2 block text-sm text-gray-700 cursor-pointer") }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-6">
+                {{ form.submit(class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all cursor-pointer shadow-md") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

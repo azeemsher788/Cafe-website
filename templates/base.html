@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Workspace Directory{% endblock %}</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#111827',
+                        secondary: '#4B5563',
+                        accent: '#3B82F6',
+                        surface: '#FFFFFF',
+                        background: '#F9FAFB',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-primary antialiased min-h-screen flex flex-col font-sans">
+    <nav class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="{{ url_for('home') }}" class="flex items-center space-x-2 text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
+                    <span class="text-2xl">☕</span>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">RemoteRoost</span>
+                </a>
+                <div>
+                    <a href="{{ url_for('add_cafe') }}" class="text-sm font-medium bg-primary text-white px-5 py-2.5 rounded-full hover:bg-gray-800 transition-all shadow-md hover:shadow-lg flex items-center space-x-1">
+                        <span>+ Add Cafe</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 w-full">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="p-4 mb-4 text-sm rounded-xl shadow-sm flex items-center space-x-2 animate-fade-in-down {% if category == 'success' %}bg-green-50 text-green-800 border border-green-100{% elif category == 'error' %}bg-red-50 text-red-800 border border-red-100{% else %}bg-blue-50 text-blue-800 border border-blue-100{% endif %}" role="alert">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-surface border-t border-gray-100 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-secondary text-sm">
+            <div class="mb-4 md:mb-0">
+                <span class="font-bold text-primary">RemoteRoost</span> &copy; 2026. Built for digital nomads.
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-primary transition-colors">Twitter</a>
+                <a href="#" class="hover:text-primary transition-colors">GitHub</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

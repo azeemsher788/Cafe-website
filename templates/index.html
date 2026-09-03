@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Home | RemoteRoost{% endblock %}
+
+{% block content %}
+<div class="mb-12 text-center mt-8">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4 tracking-tight">Find Your Perfect Workspace</h1>
+    <p class="text-lg text-secondary max-w-2xl mx-auto">Discover the best cafes with reliable WiFi, great coffee, and the perfect ambiance for remote work.</p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for cafe in cafes %}
+    <div class="bg-surface rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
+        <div class="h-48 overflow-hidden relative">
+            <img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-800 shadow-sm">
+                {{ cafe.coffee_price }}
+            </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+            <div class="flex justify-between items-start mb-2">
+                <h2 class="text-xl font-bold text-primary truncate pr-2">{{ cafe.name }}</h2>
+            </div>
+            <p class="text-sm text-secondary mb-4 flex items-center">
+                <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                {{ cafe.location }}
+            </p>
+            
+            <div class="grid grid-cols-2 gap-2 mb-6">
+                <div class="flex items-center text-sm {% if cafe.has_wifi %}text-green-600{% else %}text-gray-400{% endif %}">
+                    <span class="mr-1.5">{% if cafe.has_wifi %}✓{% else %}✗{% endif %}</span> WiFi
+                </div>
+                <div class="flex items-center text-sm {% if cafe.has_sockets %}text-green-600{% else %}text-gray-400{% endif %}">
+                    <span class="mr-1.5">{% if cafe.has_sockets %}✓{% else %}✗{% endif %}</span> Sockets
+                </div>
+                <div class="flex items-center text-sm {% if cafe.can_take_calls %}text-green-600{% else %}text-gray-400{% endif %}">
+                    <span class="mr-1.5">{% if cafe.can_take_calls %}✓{% else %}✗{% endif %}</span> Calls OK
+                </div>
+                <div class="flex items-center text-sm {% if cafe.has_toilet %}text-green-600{% else %}text-gray-400{% endif %}">
+                    <span class="mr-1.5">{% if cafe.has_toilet %}✓{% else %}✗{% endif %}</span> Toilet
+                </div>
+            </div>
+            
+            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                <a href="{{ cafe.map_url }}" target="_blank" class="text-accent hover:text-blue-700 font-medium text-sm transition-colors flex items-center">
+                    Maps 
+                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}" class="text-gray-400 hover:text-red-500 transition-colors" title="Delete Cafe">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-gray-300">
+        <p class="text-gray-500 mb-4">No cafes found in the directory.</p>
+        <a href="{{ url_for('add_cafe') }}" class="text-accent font-medium hover:underline">Be the first to add one!</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

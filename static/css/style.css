@@ -1,0 +1,50 @@
+/* Custom CSS for RemoteRoost */
+/* Extending Tailwind with specific animations and polish */
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.4s ease-out forwards;
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
+}
+
+/* Ensure smooth image scaling */
+img {
+    -webkit-user-drag: none;
+}
+
+/* Custom Form Styles for Checkboxes */
+input[type="checkbox"] {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+input[type="checkbox"]:checked {
+    background-color: #3B82F6;
+    border-color: #3B82F6;
+}
