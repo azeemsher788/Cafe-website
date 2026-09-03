@@ -4,6 +4,13 @@
 
 Built with Python and Flask, this project demonstrates strong backend fundamentals, database architecture, and a modern, responsive frontend layout.
 
+---
+
+## 📸 Preview
+
+![Cafe website](preview.jpg)
+
+
 ## 🚀 Live Demo / Features
 
 - **Dynamic Data Rendering:** Real-time fetching and display of cafe records from a SQL database.
