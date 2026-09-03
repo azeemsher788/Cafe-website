@@ -54,7 +54,8 @@ The SQLite database (`cafes.db`) utilizes a single `cafe` table with the followi
 
 1. **Clone the repository** (if applicable) or navigate to the project folder.
    ```bash
-   cd 88/
+   git clone https://github.com/azeemsher788/Cafe-website.git
+   cd Cafe-website
    ```
 
 2. **Create a Virtual Environment** (Recommended)
